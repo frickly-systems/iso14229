@@ -26,3 +26,7 @@
 #include "sys_win32.h"
 #include "sys_arduino.h"
 #include "sys_esp32.h"
+
+#if UDS_SYS == UDS_SYS_CUSTOM
+#include "sys_custom.h"
+#endif
