@@ -1,7 +1,7 @@
 #if defined(UDS_TP_ISOTP_MOCK)
 
-#include "tp/isotp_mock.h"
-#include "iso14229.h"
+#include <iso14229/tp/isotp_mock.h>
+#include <iso14229/uds.h>
 #include <assert.h>
 #include <stddef.h>
 #include <stdio.h>

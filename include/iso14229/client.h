@@ -1,9 +1,9 @@
 #pragma once
 
-#include "sys.h"
-#include "config.h"
-#include "tp.h"
-#include "uds.h"
+#include "iso14229/sys.h"
+#include "iso14229/config.h"
+#include "iso14229/tp.h"
+#include "iso14229/uds.h"
 
 #define UDS_SUPPRESS_POS_RESP 0x1  // set the suppress positive response bit
 #define UDS_FUNCTIONAL 0x2         // send the request as a functional request

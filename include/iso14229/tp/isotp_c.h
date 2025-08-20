@@ -1,11 +1,11 @@
 #pragma once
 #if defined(UDS_TP_ISOTP_C)
 
-#include "sys.h"
-#include "config.h"
-#include "uds.h"
-#include "tp.h"
-#include "tp/isotp-c/isotp.h"
+#include "iso14229/sys.h"
+#include "iso14229/config.h"
+#include "iso14229/uds.h"
+#include "iso14229/tp.h"
+#include "iso14229/tp/isotp-c/isotp.h"
 
 typedef struct {
     UDSTp_t hdl;

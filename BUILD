@@ -29,7 +29,10 @@ cc_library(
         "//src:sources",
         "//src:headers",
     ],
-    includes=["src"],
+    hdrs=[
+        "//include/iso14229:headers",
+    ],
+    includes=["src", "include"],
     copts = [
         # gcc adds system headers by default. However, the compile_commands.json used for static analysis needs this include path to be explicit.
         "-I/usr/include",
@@ -42,7 +45,10 @@ cc_binary(
         "//src:sources",
         "//src:headers",
     ],
-    includes=["src"],
+    hdrs=[
+        "//include/iso14229:headers",
+    ],
+    includes=["src", "include"],
     copts = [
         # gcc adds system headers by default. However, the compile_commands.json used for static analysis needs this include path to be explicit.
         "-I/usr/include",
@@ -58,7 +64,9 @@ cc_binary(
 cc_library(
     name="iso14229",
     srcs=[
-        "//src:iso14229.c",
+        "//src:sources",
+        "//src:headers",
+        "//include/iso14229:headers",
     ],
     hdrs=[
         "//src:iso14229.h",

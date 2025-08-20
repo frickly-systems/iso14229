@@ -1,8 +1,8 @@
 #if defined(UDS_TP_ISOTP_SOCK)
 
 #pragma once
-#include "tp.h"
-#include "uds.h"
+#include "iso14229/tp.h"
+#include "iso14229/uds.h"
 
 typedef struct {
     UDSTp_t hdl;

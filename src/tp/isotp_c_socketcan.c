@@ -1,8 +1,8 @@
 #if defined(UDS_TP_ISOTP_C_SOCKETCAN)
 
-#include "tp/isotp_c_socketcan.h"
-#include "iso14229.h"
-#include "tp/isotp-c/isotp_defines.h"
+#include <iso14229/tp/isotp_c_socketcan.h>
+#include <iso14229/uds.h>
+#include <iso14229/tp/isotp-c/isotp_defines.h>
 #include <linux/can.h>
 #include <linux/can/raw.h>
 #include <net/if.h>

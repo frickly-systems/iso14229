@@ -1,9 +1,9 @@
 #if defined(UDS_TP_ISOTP_C)
 
-#include "util.h"
-#include "log.h"
-#include "tp/isotp_c.h"
-#include "tp/isotp-c/isotp.h"
+#include <iso14229/util.h>
+#include <iso14229/log.h>
+#include <iso14229/tp/isotp_c.h>
+#include <iso14229/tp/isotp-c/isotp.h>
 
 static UDSTpStatus_t tp_poll(UDSTp_t *hdl) {
     UDS_ASSERT(hdl);

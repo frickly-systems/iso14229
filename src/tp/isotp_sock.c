@@ -1,8 +1,8 @@
 #if defined(UDS_TP_ISOTP_SOCK)
 
-#include "tp/isotp_sock.h"
-#include "uds.h"
-#include "log.h"
+#include <iso14229/tp/isotp_sock.h>
+#include <iso14229/uds.h>
+#include <iso14229/log.h>
 #include <string.h>
 #include <errno.h>
 #include <linux/can.h>
