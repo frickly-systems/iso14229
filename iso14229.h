@@ -42,6 +42,8 @@ extern "C" {
 
 
 #if UDS_SYS == UDS_SYS_ARDUINO
+    
+#include "iso14229_zephyr.h"
 
 #include <assert.h>
 #include <stddef.h>
