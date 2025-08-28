@@ -1,4 +1,0 @@
-name: iso14229
-build:
-  cmake-ext: True
-  kconfig-ext: True
