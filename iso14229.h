@@ -62,6 +62,10 @@ extern "C" {
 
 #if UDS_SYS == UDS_SYS_UNIX
 
+#ifdef CONFIG_BOARD_NATIVE_SIM
+#define _POSIX_C_SOURCE 200809L
+#endif  // CONFIG_BOARD_NATIVE_SIM
+
 #include <assert.h>
 #include <inttypes.h>
 #include <stdbool.h>
