@@ -110,6 +110,11 @@ typedef SSIZE_T ssize_t;
 
 
 
+#if UDS_SYS == UDS_SYS_CUSTOM
+#include "sys_custom.h"
+#endif
+
+
 /** ISO-TP Maximum Transmissiable Unit (ISO-15764-2-2004 section 5.3.3) */
 #define UDS_ISOTP_MTU (4095)
 
