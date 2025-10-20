@@ -9,7 +9,8 @@ message Request0x10DiagSessCtrl {
 message Response0x10DiagSessCtrl {
   uint32 srv = 1;// service
   uint32 sub_func = 2;// subfunction
-  uint32 session_parameter_record = 3;// session parameter record
+  uint32 p2_ms = 3;
+  uint32 p2_star_ms = 4;
 }
 
 message Service0x10DiagSessCtrl {

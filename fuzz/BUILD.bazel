@@ -48,12 +48,12 @@ cc_fuzz_test(
         "@libprotobuf-mutator//:protobuf-mutator",
         "@protobuf//:protobuf",
     ],
-    # (Optional) seed corpus for structure-aware inputs:
-    # corpus = [":proto_corpus"],
+    # Seed corpus and generated corpus for structure-aware inputs:
+    corpus = [":proto_corpus"],
 )
 
-# (Optional) a place for seed .proto-generated inputs
+# Corpus for structure-aware proto fuzzer
 filegroup(
     name = "proto_corpus",
-    srcs = glob(["outputs/proto_corpus/**"], allow_empty = True),
+    srcs = glob(["outputs/proto/corpus/**", "outputs/proto/seed_corpus/bin/**"], allow_empty = True),
 )

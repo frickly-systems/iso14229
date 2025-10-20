@@ -21,13 +21,21 @@ static void poll_server(UDSServer_t *srv, size_t wait_ms, size_t poll_rate_us) {
 }
 
 static UDSErr_t fn(UDSServer_t *srv, UDSEvent_t ev, void *arg) {
+    udsfuzz::Testcase *tc = (udsfuzz::Testcase *)srv->fn_data;
+
     // For structure-aware fuzzing, we want deterministic behavior
     // Most handlers will accept requests with positive responses
     switch (ev) {
     case UDS_EVT_DiagSessCtrl: {
+        const auto &dsc = tc->msgs().diag_sess_ctrl();
         UDSDiagSessCtrlArgs_t *r = (UDSDiagSessCtrlArgs_t *)arg;
-        r->p2_ms = 50;
-        r->p2_star_ms = 5000;
+        if (!dsc.has_response()) {
+            r->p2_ms = 50;
+            r->p2_star_ms = 5000;
+        } else {
+            r->p2_ms = (uint16_t)(dsc.response().p2_ms() & 0xFFFF);
+            r->p2_star_ms = (uint16_t)(dsc.response().p2_star_ms() & 0xFFFF);
+        }
         return UDS_PositiveResponse;
     }
     default:
@@ -77,15 +85,20 @@ DEFINE_PROTO_FUZZER(const udsfuzz::Testcase &tc) {
     UDSServer_t srv;
     UDSTp_t *mock_client = nullptr;
 
+    // Use addressing from testcase, with fallback defaults
+    uint16_t server_sa = tc.ta() ? tc.ta() : 0x7E8;
+    uint16_t server_ta = tc.sa() ? tc.sa() : 0x7E0;
+    uint16_t client_sa = tc.sa() ? tc.sa() : 0x7E0;
+    uint16_t client_ta = tc.ta() ? tc.ta() : 0x7E8;
+
     ISOTPMockArgs_t server_args = {
-        .sa_phys = 0x7E0, .ta_phys = 0x7E8, .sa_func = 0x7DF, .ta_func = UDS_TP_NOOP_ADDR};
+        .sa_phys = server_sa, .ta_phys = server_ta, .sa_func = 0x7DF, .ta_func = UDS_TP_NOOP_ADDR};
     ISOTPMockArgs_t client_args = {
-        .sa_phys = 0x7E8, .ta_phys = 0x7E0, .sa_func = UDS_TP_NOOP_ADDR, .ta_func = 0x7DF};
+        .sa_phys = client_sa, .ta_phys = client_ta, .sa_func = UDS_TP_NOOP_ADDR, .ta_func = 0x7DF};
 
     UDSServerInit(&srv);
-    // Use our simple deterministic handler
     srv.fn = fn;
-    srv.fn_data = nullptr;
+    srv.fn_data = (void *)&tc;
     srv.tp = ISOTPMockNew("server", &server_args);
     mock_client = ISOTPMockNew("client", &client_args);
 

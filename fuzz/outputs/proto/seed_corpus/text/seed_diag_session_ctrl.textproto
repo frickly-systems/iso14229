@@ -14,7 +14,8 @@ msgs {
     response {
       srv: 0x10
       sub_func: 0x01
-      session_parameter_record: 0x12345678
+      p2_ms: 0x1234
+      p2_star_ms: 0x5678
     }
   }
 }

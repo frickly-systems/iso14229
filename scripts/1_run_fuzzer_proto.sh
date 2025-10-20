@@ -32,7 +32,8 @@ bazel run -c opt --config=hermetic-fuzz \
   --repo_env=CC=clang --repo_env=CXX=clang++ \
   //fuzz:fuzz_server_proto_bin -- \
   -artifact_prefix="${ARTIFACT_OUTPUT}" \
-  -max_total_time=5 \
+  -max_total_time=60 \
+  -jobs=$(nproc) \
   -print_final_stats=1 \
   "${WORKSPACE}/fuzz/outputs/proto/corpus/" \
   "${SEED_BIN}/"
