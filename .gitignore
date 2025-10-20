@@ -45,3 +45,6 @@ latex/
 # aes key files generated for the sample
 examples/linux_server_0x29/uds_aes_key.bin
 examples/linux_server_0x29/uds_aes_key.h
+
+# binary seed corpus for the proto fuzzer
+fuzz/outputs/proto/seed_corpus/bin

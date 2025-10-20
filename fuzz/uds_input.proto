@@ -1,0 +1,36 @@
+syntax = "proto3";
+package udsfuzz;
+
+message Request0x10DiagSessCtrl {
+  uint32 srv = 1;// service
+  uint32 sub_func = 2;// subfunction
+}
+
+message Response0x10DiagSessCtrl {
+  uint32 srv = 1;// service
+  uint32 sub_func = 2;// subfunction
+  uint32 session_parameter_record = 3;// session parameter record
+}
+
+message Service0x10DiagSessCtrl {
+  Request0x10DiagSessCtrl request = 1;
+  Response0x10DiagSessCtrl response = 2;
+}
+
+message Messages {
+  oneof payload {
+    Service0x10DiagSessCtrl diag_sess_ctrl = 1;
+  }
+}
+
+// A test case is a request and a corresponding response
+message Testcase {
+  uint32 start_time_us = 1;
+  uint32 pre_wait_ms = 2;
+  uint32 post_wait_ms = 3;
+  uint32 sa = 4;
+  uint32 ta = 5;
+  uint32 ta_type = 6;
+  uint32 mtype = 7;
+  Messages msgs = 8;
+}

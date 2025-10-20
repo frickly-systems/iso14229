@@ -1,0 +1,20 @@
+start_time_us: 0
+pre_wait_ms: 10
+post_wait_ms: 20
+sa: 0x123
+ta: 0x456
+ta_type: 0
+mtype: 0
+msgs {
+  diag_sess_ctrl {
+    request {
+      srv: 0x10
+      sub_func: 0x01
+    }
+    response {
+      srv: 0x10
+      sub_func: 0x01
+      session_parameter_record: 0x12345678
+    }
+  }
+}
