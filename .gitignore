@@ -16,6 +16,7 @@ reports
 test_iso14229
 client
 server
+!fuzz/outputs/server
 *.profdata
 *.profraw
 .gdb_history

@@ -1,5 +1,8 @@
 load("@rules_fuzzing//fuzzing:cc_defs.bzl", "cc_fuzz_test")
+load("@protobuf//bazel:proto_library.bzl", "proto_library")
+load("@protobuf//bazel:cc_proto_library.bzl", "cc_proto_library")
 
+# --- Generic fuzzer ---
 cc_fuzz_test(
     name = "fuzz_server",
     srcs = [
@@ -7,22 +10,50 @@ cc_fuzz_test(
         "//src:iso14229.h",
         "//src:iso14229.c",
     ],
-    defines = [
-        "UDS_TP_ISOTP_MOCK",
-        "UDS_CUSTOM_MILLIS",
-        "UDS_LINES",
-    ],
-    copts = [
-        "-g",
-        "-O0"
-    ],
+    defines = ["UDS_TP_ISOTP_MOCK","UDS_CUSTOM_MILLIS","UDS_LINES"],
+    copts = ["-g","-O0"],
     size = "small",
-    corpus = [
-        ":corpus_filegroup"
-    ]
+    corpus = [":corpus_filegroup"],
 )
 
 filegroup(
     name = "corpus_filegroup",
-    srcs = glob(["outputs/corpus/**"], allow_empty=True),
+    srcs = glob(["outputs/corpus/**"], allow_empty = True),
+)
+
+# --- Structure-aware fuzzer ---
+
+proto_library(
+    name = "uds_input_proto",
+    srcs = ["uds_input.proto"],
+)
+
+cc_proto_library(
+    name = "uds_input_cc_proto",
+    deps = [":uds_input_proto"],
+)
+
+cc_fuzz_test(
+    name = "fuzz_server_proto",
+    srcs = [
+        "fuzz_server_proto.cc",
+        "//src:iso14229.h",
+        "//src:iso14229.c",
+    ],
+    defines = ["UDS_TP_ISOTP_MOCK","UDS_CUSTOM_MILLIS","UDS_LINES"],
+    copts = ["-g","-O0"],
+    size = "small",
+    deps = [
+        ":uds_input_cc_proto",
+        "@libprotobuf-mutator//:protobuf-mutator",
+        "@protobuf//:protobuf",
+    ],
+    # (Optional) seed corpus for structure-aware inputs:
+    # corpus = [":proto_corpus"],
+)
+
+# (Optional) a place for seed .proto-generated inputs
+filegroup(
+    name = "proto_corpus",
+    srcs = glob(["outputs/proto_corpus/**"], allow_empty = True),
 )
